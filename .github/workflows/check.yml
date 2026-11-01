@@ -30,6 +30,8 @@ jobs:
           mkdir -p "$taps"
           rm -rf "$taps/homebrew-quiver"
           ln -s "$GITHUB_WORKSPACE" "$taps/homebrew-quiver"
+          # Homebrew ignores a third-party tap's files until it is trusted.
+          brew trust c-wenlong/quiver
 
       - name: brew style
         run: brew style c-wenlong/quiver

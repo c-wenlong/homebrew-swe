@@ -14,7 +14,7 @@ cask "quiver" do
 
   auto_updates true
   depends_on arch: :arm64
-  depends_on macos: ">= :tahoe"
+  depends_on macos: :tahoe
 
   app "Quiver.app"
 
