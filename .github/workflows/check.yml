@@ -1,5 +1,5 @@
-# Lints and audits the cask and the formula on every push, including the
-# version bumps quiver's release workflow pushes, then builds and tests the
+# Lints and audits the casks and the formula on every push, including the
+# version bumps swe's release workflow pushes, then builds and tests the
 # formula so a broken bump shows up here rather than on a user's machine.
 name: Check
 
@@ -19,6 +19,9 @@ jobs:
     env:
       HOMEBREW_NO_AUTO_UPDATE: "1"
       HOMEBREW_NO_INSTALL_CLEANUP: "1"
+      # The online audits query the GitHub API; an unauthenticated runner
+      # IP shares a 60/hr pool and the audit flakes on rate limits.
+      HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
@@ -28,20 +31,22 @@ jobs:
         run: |
           taps="$(brew --repository)/Library/Taps/c-wenlong"
           mkdir -p "$taps"
-          rm -rf "$taps/homebrew-quiver"
-          ln -s "$GITHUB_WORKSPACE" "$taps/homebrew-quiver"
+          rm -rf "$taps/homebrew-swe"
+          ln -s "$GITHUB_WORKSPACE" "$taps/homebrew-swe"
           # Homebrew ignores a third-party tap's files until it is trusted.
-          brew trust c-wenlong/quiver
+          brew trust c-wenlong/swe
 
       - name: brew style
-        run: brew style c-wenlong/quiver
+        run: brew style c-wenlong/swe
 
       - name: brew audit
         run: |
-          brew audit --strict --online --cask c-wenlong/quiver/quiver
-          brew audit --strict --online --formula c-wenlong/quiver/swe
+          for cask in Casks/*.rb; do
+            brew audit --strict --online --cask "c-wenlong/swe/$(basename "$cask" .rb)"
+          done
+          brew audit --strict --online --formula c-wenlong/swe/swe
 
       - name: Install and test swe
         run: |
-          brew install --formula c-wenlong/quiver/swe
-          brew test c-wenlong/quiver/swe
+          brew install --formula c-wenlong/swe/swe
+          brew test c-wenlong/swe/swe

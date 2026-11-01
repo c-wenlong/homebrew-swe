@@ -2,14 +2,13 @@ cask "quiver" do
   version "1.1.1"
   sha256 "bfe520dce920ff306717c6e14eaae359b764a8d7e4f9508ae92a1dac1d870e9f"
 
-  url "https://github.com/c-wenlong/quiver/releases/download/v#{version}/Quiver-#{version}.dmg"
+  url "https://github.com/c-wenlong/swe/releases/download/v#{version}/Quiver-#{version}.dmg"
   name "Quiver"
   desc "Manage AI coding CLIs, their sessions, usage and rate limits"
-  homepage "https://github.com/c-wenlong/quiver"
+  homepage "https://github.com/c-wenlong/swe"
 
   livecheck do
-    url "https://github.com/c-wenlong/quiver/releases/latest/download/appcast.xml"
-    strategy :sparkle, &:short_version
+    skip "Renamed to swe"
   end
 
   auto_updates true
