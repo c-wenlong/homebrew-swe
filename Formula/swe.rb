@@ -2,8 +2,8 @@ class Swe < Formula
   include Language::Python::Virtualenv
 
   desc "Manage AI coding CLIs, their sessions, usage and rate limits"
-  homepage "https://github.com/c-wenlong/quiver"
-  url "https://github.com/c-wenlong/quiver/releases/download/v1.1.1/quiver-1.1.1-py3-none-any.whl",
+  homepage "https://github.com/c-wenlong/swe"
+  url "https://github.com/c-wenlong/swe/releases/download/v1.1.1/quiver-1.1.1-py3-none-any.whl",
       using: :nounzip
   sha256 "63be610f2c433bafdb7f00c352cc6acbf5f5502bbc6932a63572c9cb0b40dc55"
   license "MIT"
