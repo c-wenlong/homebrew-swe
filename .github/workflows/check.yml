@@ -1,0 +1,45 @@
+# Lints and audits the cask and the formula on every push, including the
+# version bumps quiver's release workflow pushes, then builds and tests the
+# formula so a broken bump shows up here rather than on a user's machine.
+name: Check
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    # macOS 26 on Apple silicon: the cask needs both.
+    runs-on: macos-26
+    timeout-minutes: 30
+    env:
+      HOMEBREW_NO_AUTO_UPDATE: "1"
+      HOMEBREW_NO_INSTALL_CLEANUP: "1"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Tap this checkout
+        # A symlink rather than `brew tap`, so the audit reads this commit
+        # and not whatever main held when the job started.
+        run: |
+          taps="$(brew --repository)/Library/Taps/c-wenlong"
+          mkdir -p "$taps"
+          rm -rf "$taps/homebrew-quiver"
+          ln -s "$GITHUB_WORKSPACE" "$taps/homebrew-quiver"
+
+      - name: brew style
+        run: brew style c-wenlong/quiver
+
+      - name: brew audit
+        run: |
+          brew audit --strict --online --cask c-wenlong/quiver/quiver
+          brew audit --strict --online --formula c-wenlong/quiver/swe
+
+      - name: Install and test swe
+        run: |
+          brew install --formula c-wenlong/quiver/swe
+          brew test c-wenlong/quiver/swe
