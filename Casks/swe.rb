@@ -1,6 +1,6 @@
 cask "swe" do
-  version "1.2.1"
-  sha256 "a889faefe0a4dd46e9578789210bc2312ea15826c38032752882302ae12526a4"
+  version "1.2.2"
+  sha256 "a031f1a05df481229036be1d8d37b7b2357a68294f0d5fad0cbb7f58823cfb2a"
 
   url "https://github.com/c-wenlong/swe/releases/download/v#{version}/SWE-#{version}.dmg"
   name "SWE"

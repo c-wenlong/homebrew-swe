@@ -3,9 +3,9 @@ class Swe < Formula
 
   desc "Manage AI coding CLIs, their sessions, usage and rate limits"
   homepage "https://github.com/c-wenlong/swe"
-  url "https://github.com/c-wenlong/swe/releases/download/v1.2.1/swe-1.2.1-py3-none-any.whl",
+  url "https://github.com/c-wenlong/swe/releases/download/v1.2.2/swe-1.2.2-py3-none-any.whl",
       using: :nounzip
-  sha256 "9ed761b22dc5a7fca7576396ad4ba1e07018e9c99e08c9d0dfb7dcb42d706d05"
+  sha256 "36b97aeb986dbf86168481f4b2ab3dc0620f3adcf8b5063973619f2ab19922fa"
   license "MIT"
 
   livecheck do
