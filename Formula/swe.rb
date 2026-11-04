@@ -3,9 +3,9 @@ class Swe < Formula
 
   desc "Manage AI coding CLIs, their sessions, usage and rate limits"
   homepage "https://github.com/c-wenlong/swe"
-  url "https://github.com/c-wenlong/swe/releases/download/v1.1.1/quiver-1.1.1-py3-none-any.whl",
+  url "https://github.com/c-wenlong/swe/releases/download/v1.2.1/swe-1.2.1-py3-none-any.whl",
       using: :nounzip
-  sha256 "63be610f2c433bafdb7f00c352cc6acbf5f5502bbc6932a63572c9cb0b40dc55"
+  sha256 "9ed761b22dc5a7fca7576396ad4ba1e07018e9c99e08c9d0dfb7dcb42d706d05"
   license "MIT"
 
   livecheck do
@@ -19,7 +19,7 @@ class Swe < Formula
     # The release wheel is pure Python with no dependencies, so it goes
     # straight into the virtualenv: no build backend, no resources.
     venv = virtualenv_create(libexec, "python3.14")
-    venv.pip_install_and_link buildpath/"quiver-#{version}-py3-none-any.whl"
+    venv.pip_install_and_link buildpath/"swe-#{version}-py3-none-any.whl"
   end
 
   test do
